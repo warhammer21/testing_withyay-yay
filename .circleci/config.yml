@@ -36,8 +36,8 @@ jobs:
       - run:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
-          ## line test here 
-          command: pytest
+          # chnages from local = pip install -r requirements.txt
+          #command: pytest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
