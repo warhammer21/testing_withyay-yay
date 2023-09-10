@@ -33,11 +33,10 @@ jobs:
           pkg-manager: pip
           # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
-      - run:
-          name: Run tests
-          # This assumes pytest is installed via the install-package step above
-          # chnages from local = pip install -r requirements.txt
-          #command: pytest
+      - run: print("hellow") #pip install -r requirements.txt
+#          name: Run tests
+#          # This assumes pytest is installed via the install-package step above
+#          command: pytest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
