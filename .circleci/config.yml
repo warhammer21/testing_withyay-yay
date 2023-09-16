@@ -34,7 +34,9 @@ jobs:
       #    pkg-manager: pip
           # app-dir: ~/project/package-directory/  # If your requirements.txt isn't in the root directory.
           # pip-dependency-file: test-requirements.txt  # if you have a different name for your requirements file, maybe one that combines your runtime and test requirements.
-      - run: python  test.py
+      - run: node --version
+      - run: npm i -g @railway/cli
+      - run: cd testing_withyay-yay/Yay-yay-api/app
           # This assumes pytest is installed via the install-package step above
           ## line test here 
           #command: pytest
