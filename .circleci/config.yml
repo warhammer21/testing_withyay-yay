@@ -38,7 +38,7 @@ jobs:
           node-version: '16.13'
       - run: node --version
       - run: npm i -g @railway/cli
-      - run: cd testing_withyay-yay/Yay-yay-api/app
+      - run: cd Yay-yay-api/app
           # This assumes pytest is installed via the install-package step above
           ## line test here 
           #command: pytest
