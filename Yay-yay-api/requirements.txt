@@ -13,4 +13,4 @@ loguru>=0.5.3,<1.0.0
 # We will explain this in the course
 #tid-regression-model>=3.2.0
 feature-engine==1.2.0
-prophet==1.1.1
+statsmodels==0.13.5

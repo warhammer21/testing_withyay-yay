@@ -7,9 +7,9 @@ import pandas as pd
 from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 from loguru import logger
-#from regression_model import __version__ as model_version
-#from regression_model.predict import make_prediction
-from prophet import Prophet
+
+from statsmodels.tsa.arima.model import ARIMA
+
 
 
 
@@ -40,12 +40,22 @@ async def predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
     input_df = jsonable_encoder(input_data.inputs)
     input_df =input_df[0]['Total_number_of_days_for_future_forecast']
     gmv_total_final_set = pd.read_csv('https://raw.githubusercontent.com/warhammer21/Yay-Yay/main/gmv_total_final_set.csv')
-    prophet_final = Prophet(interval_width=0.95,changepoint_prior_scale = 0.1,holidays_prior_scale = 0.5,
-                  n_changepoints = 150,seasonality_mode= 'multiplicative')
-    prophet_final.fit(gmv_total_final_set)
-    forecast_df = prophet_final.make_future_dataframe(periods=input_df,include_history = False)
-    print(forecast_df)
-    forecast = prophet_final.predict(forecast_df)
+    model = ARIMA(gmv_total_final_set.y, order=(1,1,2))
+    model_fit = model.fit()
+    k = model_fit.get_prediction(start=input_df).predicted_mean
+
+
+
+
+
+
+
+    # prophet_final = Prophet(interval_width=0.95,changepoint_prior_scale = 0.1,holidays_prior_scale = 0.5,
+    #               n_changepoints = 150,seasonality_mode= 'multiplicative')
+    # prophet_final.fit(gmv_total_final_set)
+    # forecast_df = prophet_final.make_future_dataframe(periods=input_df,include_history = False)
+    # print(forecast_df)
+    # forecast = prophet_final.predict(forecast_df)
     #forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].head()
 
     # Advanced: You can improve performance of your API by rewriting the
@@ -65,5 +75,5 @@ async def predict(input_data: schemas.MultipleHouseDataInputs) -> Any:
     results = 500
 
     return {
-        'dates':forecast['ds'], 'yhat':forecast['yhat']
+        'predictions':list(k)
     }
